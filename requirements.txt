@@ -1,1 +1,59 @@
-./backend[server]
+# DigitalOcean App Platform — flat dependency list
+# Mirrors backend/pyproject.toml base + server extras.
+# A flat list is used instead of `./backend[server]` because hatchling's
+# force-include for frontend/dist fails when the frontend isn't pre-built.
+# The `--app-dir backend` flag in the Procfile adds backend/ to sys.path
+# so the `app` package is importable without a wheel install.
+
+# Web framework
+fastapi>=0.115.0,<1
+uvicorn[standard]>=0.32.0,<1
+python-multipart>=0.0.26
+
+# Database
+sqlalchemy[asyncio]>=2.0.36,<2.1
+aiosqlite>=0.20.0
+alembic>=1.14.0,<2
+
+# Validation & serialization
+pydantic>=2.10.0,<3
+pydantic-settings>=2.6.0,<3
+email-validator>=2.1.0
+
+# Auth
+python-jose[cryptography]>=3.3.0
+bcrypt>=4.0.0
+
+# Export & Import
+openpyxl>=3.1.0
+reportlab>=4.0.0
+pdfplumber>=0.11.0
+
+# Utilities
+httpx>=0.28.0,<1
+orjson>=3.10.0
+python-dateutil>=2.9.0
+structlog>=24.4.0
+defusedxml>=0.7.1
+
+# Tabular data
+pandas>=2.2.0,<3
+pyarrow>=18.0.0,<25
+
+# 3D geometry
+trimesh>=4.0.0
+
+# DWG/DXF parsing
+ezdxf>=0.18.0
+
+# Analytics
+duckdb>=1.2.0,<2
+
+# Fuzzy search
+rapidfuzz>=3.0.0
+
+# Server extras (PostgreSQL + Redis + S3)
+asyncpg>=0.30.0
+psycopg2-binary>=2.9.10
+celery[redis]>=5.4.0
+boto3>=1.35.0
